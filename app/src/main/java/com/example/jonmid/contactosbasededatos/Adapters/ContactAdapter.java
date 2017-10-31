@@ -1,6 +1,7 @@
 package com.example.jonmid.contactosbasededatos.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.jonmid.contactosbasededatos.Models.Contact;
 import com.example.jonmid.contactosbasededatos.R;
+import com.example.jonmid.contactosbasededatos.Views.DeleteActivyty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,15 +66,16 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         public void onClick(View view) {
             Context contextItem = view.getContext();
 
-            /*Intent intent = new Intent(context, DetailActivity.class);
-            intent.putExtra("nameTeam", teamModelMiderosJonathanList.get(getLayoutPosition()).getName());
-            intent.putExtra("codeTeam", teamModelMiderosJonathanList.get(getLayoutPosition()).getCode());
-            intent.putExtra("imgTeam", teamModelMiderosJonathanList.get(getLayoutPosition()).getCrestUrl());
-            contextItem.startActivity(intent);*/
+            Intent intent = new Intent(context, DeleteActivyty.class);
+            intent.putExtra("id", contactList.get(getLayoutPosition()).getId());
+            intent.putExtra("name", contactList.get(getLayoutPosition()).getName());
+            intent.putExtra("phone", contactList.get(getLayoutPosition()).getPhone());
+            intent.putExtra("email", contactList.get(getLayoutPosition()).getEmail());
+            contextItem.startActivity(intent);
 
 
-            //String valor = Integer.toString(albumModelList.get(getLayoutPosition()).getId());
-            //Toast.makeText(contextItem, valor, Toast.LENGTH_SHORT).show();
+           // /String valor = Integer.toString(albumModelList.get(getLayoutPosition()).getId());
+           // Toast.makeText(contextItem, valor, Toast.LENGTH_SHORT).show();
         }
     }
 

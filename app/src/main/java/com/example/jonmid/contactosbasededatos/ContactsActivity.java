@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.jonmid.contactosbasededatos.Adapters.ContactAdapter;
 import com.example.jonmid.contactosbasededatos.Helpers.SqliteHelper;
 import com.example.jonmid.contactosbasededatos.Models.Contact;
+import com.example.jonmid.contactosbasededatos.Views.DeleteActivyty;
 import com.example.jonmid.contactosbasededatos.Views.RegisterContactActivity;
 import com.example.jonmid.contactosbasededatos.Views.SearchContactActivity;
 
@@ -56,12 +57,18 @@ editText=(EditText)findViewById(R.id.edit1);
         startActivity(intent);
     }
 
-
+    public void eliminar(View view) {
+        Intent intent = new Intent(this, DeleteActivyty.class);
+        startActivity(intent);
+    }
     public void listContactsindex(View view) {
 //limpiar lista
       //  limpoar resicler
         contactList.clear();
-     //recyclerViewContacts.setLayoutManager(null);
+
+        //.removeALLviewsinlayout
+        //.removeALLview
+        recyclerViewContacts.setAdapter(null);
         SQLiteDatabase db = sqliteHelper.getReadableDatabase();
     //
         Cursor cursor = db.rawQuery("select name,phone,email from users WHERE name="+"'"+editText.getText()+"'",null);
@@ -108,6 +115,23 @@ cursor.close();
             contactAdapter = new ContactAdapter(contactList, getApplicationContext());
             recyclerViewContacts.setAdapter(contactAdapter);
         }else{
+            Toast.makeText(this, "NO TIENES CONTACTOS", Toast.LENGTH_SHORT).show();
+
+        }
+
+    }
+
+
+    public void proccesDataindex () {
+        if (contactList.size() != 0) {
+
+
+            contactAdapter = new ContactAdapter(contactList, getApplicationContext());
+            recyclerViewContacts.setAdapter(contactAdapter);
+        }else{
+
+
+
             Toast.makeText(this, "NO TIENES CONTACTOS", Toast.LENGTH_SHORT).show();
 
         }
