@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.jonmid.contactosbasededatos.Adapters.ContactAdapter;
 import com.example.jonmid.contactosbasededatos.Helpers.SqliteHelper;
 import com.example.jonmid.contactosbasededatos.Models.Contact;
+import com.example.jonmid.contactosbasededatos.Utilities.Constants;
 import com.example.jonmid.contactosbasededatos.Views.DeleteActivyty;
 import com.example.jonmid.contactosbasededatos.Views.RegisterContactActivity;
 import com.example.jonmid.contactosbasededatos.Views.SearchContactActivity;
@@ -44,7 +45,6 @@ editText=(EditText)findViewById(R.id.edit1);
         recyclerViewContacts.setLayoutManager(linearLayoutManager);
         listContacts();
 
-
     }
 
     public void onClickShowWindowRegister(View view) {
@@ -71,13 +71,14 @@ editText=(EditText)findViewById(R.id.edit1);
         recyclerViewContacts.setAdapter(null);
         SQLiteDatabase db = sqliteHelper.getReadableDatabase();
     //
-        Cursor cursor = db.rawQuery("select name,phone,email from users WHERE name="+"'"+editText.getText()+"'",null);
+        Cursor cursor = db.rawQuery("select id,name,phone,email from users WHERE name="+"'"+editText.getText()+"'",null);
         while(cursor.moveToNext()){
 
             Contact contact = new Contact();
-            contact.setName(cursor.getString(0));
-            contact.setPhone(cursor.getString(1));
-            contact.setEmail((cursor.getString(2)));
+           contact.setId(cursor.getInt(0));
+            contact.setName(cursor.getString(1));
+            contact.setPhone(cursor.getString(2));
+            contact.setEmail((cursor.getString(3)));
 
             contactList.add(contact);
         }
@@ -92,13 +93,14 @@ editText=(EditText)findViewById(R.id.edit1);
 
         SQLiteDatabase db = sqliteHelper.getReadableDatabase();
 
-        Cursor cursor = db.rawQuery("select name,phone,email from users order by id desc",null);
+        Cursor cursor = db.rawQuery("select id,name,phone,email from users order by id desc",null);
         while(cursor.moveToNext()){
 
             Contact contact = new Contact();
-            contact.setName(cursor.getString(0));
-         contact.setPhone(cursor.getString(1));
-            contact.setEmail((cursor.getString(2)));
+            contact.setId(cursor.getInt(0));
+            contact.setName(cursor.getString(1));
+         contact.setPhone(cursor.getString(2));
+            contact.setEmail((cursor.getString(3)));
 
             contactList.add(contact);
         }
